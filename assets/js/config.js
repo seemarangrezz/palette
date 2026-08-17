@@ -21,7 +21,7 @@
    ========================================================================== */
 
 const APP_CONFIG = {
-  SUPABASE_URL: "https://ddomntsszzdeniqyuzpv.supabase.co/rest/v1/",
+  SUPABASE_URL: "https://ddomntsszzdeniqyuzpv.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkb21udHNzenpkZW5pcXl1enB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5OTIxMTUsImV4cCI6MjEwMjU2ODExNX0.9tseBmpkhSVWunWH2aDuN6AlJmS5U6xgqcmZctn6Xa8",
 
   /* Storage bucket name — leave as-is unless you named yours differently. */
