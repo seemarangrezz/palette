@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Artwork — Your Name</title>
+<meta name="description" content="The story, inspiration and interpretation behind this piece." />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="portfolio">
+<div id="veil" class="veil"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-nav"></div>
+
+<main id="main">
+  <section class="art-hero">
+    <div class="art-hero-img reveal-img in">
+      <img id="artHeroImg" src="" alt="" data-cursor-view />
+    </div>
+    <div class="art-hero-info container">
+      <div>
+        <p class="eyebrow" id="artStatus">Available</p>
+        <h1 class="art-title" id="artTitle">Title</h1>
+      </div>
+      <div class="label-line" id="artMeta"></div>
+    </div>
+  </section>
+
+  <section class="art-story">
+    <div class="art-story-block reveal" id="blockStory">
+      <h4>The Story</h4>
+      <p></p>
+    </div>
+    <div class="art-story-block reveal" id="blockInspiration">
+      <h4>Inspiration</h4>
+      <p></p>
+    </div>
+    <div class="art-story-block reveal" id="blockInterpretation">
+      <h4>Artist's Interpretation</h4>
+      <p></p>
+    </div>
+  </section>
+
+  <div class="art-gallery-extra" id="artExtraImages"></div>
+
+  <nav class="art-nav">
+    <a id="prevLink">← <span>Previous</span></a>
+    <a href="portfolio.html" style="text-align:center;">All Works</a>
+    <a id="nextLink" style="text-align:right;"><span>Next</span> →</a>
+  </nav>
+
+  <section class="container">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">More from the Studio</p><h2>Related Works</h2></div>
+    </div>
+    <div class="gallery-grid" id="relatedStrip"></div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">Close ✕</button>
+  <img src="" alt="" />
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gallery.js"></script>
+<script src="assets/js/artwork-detail.js"></script>
+</body>
+</html>

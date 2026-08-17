@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Name — Contemporary Visual Artist</title>
+<meta name="description" content="Contemporary visual artist working across oil, acrylic, charcoal, clay sculpture, Tanjore and Lippan mud-mirror art. Based in Dubai, exhibiting internationally." />
+<meta property="og:title" content="Your Name — Contemporary Visual Artist" />
+<meta property="og:description" content="A digital gallery of paintings, sketches, sculpture and traditional Indian art forms." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="home">
+<div id="veil" class="veil"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-nav"></div>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero-media"><img id="heroImg" src="assets/images/artworks/hero-artwork.svg" alt="Featured artwork" /></div>
+    <div class="hero-inner">
+      <h1 class="hero-name" id="heroName">Your Name</h1>
+      <p class="hero-tagline" id="heroTagline">Painter of memory, myth and material</p>
+      <div class="hero-ctas">
+        <a href="portfolio.html" class="btn btn-solid btn-arrow">Explore My Work</a>
+        <a href="about.html" class="btn">About the Artist</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Scroll</span><span class="line"></span></div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee" id="marquee" aria-hidden="true"></div>
+  </div>
+
+  <section class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">Selected Works</p>
+        <h2>From the studio</h2>
+      </div>
+      <a href="portfolio.html" class="btn btn-arrow">View Full Portfolio</a>
+    </div>
+    <div class="featured-strip" id="featuredStrip"></div>
+  </section>
+
+  <section class="container about-teaser">
+    <div class="reveal reveal-img"><img src="assets/images/artworks/study-in-graphite-ii.svg" alt="In the studio" style="aspect-ratio:4/5;object-fit:cover;" /></div>
+    <div class="reveal">
+      <p class="eyebrow">The Artist</p>
+      <h2 style="font-style:italic;font-weight:400;font-size:clamp(30px,3.8vw,46px);margin-top:16px;">Working between the classical and the experimental.</h2>
+      <p class="lede" style="margin-top:24px;" id="aboutTeaserText"></p>
+      <div style="margin-top:36px;"><a href="about.html" class="btn btn-arrow">Read the Full Story</a></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">Practice</p>
+        <h2>Nine disciplines, one language</h2>
+      </div>
+    </div>
+    <div class="mediums-list stagger" id="mediumsList"></div>
+  </section>
+
+  <section class="container reveal" style="text-align:center; padding-top:0;">
+    <p class="eyebrow" style="justify-content:center;">Let's Work Together</p>
+    <h2 style="font-style:italic; margin-top:18px;">Commissions, exhibitions<br/>and collaborations welcome.</h2>
+    <div style="margin-top:38px;"><a href="contact.html" class="btn btn-solid btn-arrow">Start an Inquiry</a></div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gallery.js"></script>
+<script>
+document.addEventListener("site:ready", (e) => {
+  const site = e.detail.site;
+  document.title = `${site.artistName} — Contemporary Visual Artist`;
+  document.getElementById("heroName").textContent = site.artistName;
+  document.getElementById("heroTagline").textContent = site.tagline;
+  document.getElementById("heroImg").src = site.heroImage;
+  document.getElementById("aboutTeaserText").textContent = site.bio.intro;
+
+  const mediums = Store.getSite().mediums;
+  document.getElementById("mediumsList").innerHTML = mediums.map(m => `<li class="reveal">${m}</li>`).join("");
+
+  const marquee = document.getElementById("marquee");
+  const words = ["Oil Painting", "Acrylic", "Charcoal", "Clay Sculpture", "Tanjore Art", "Lippan Art", "Mixed Media"];
+  const line = words.map(w => `<span>${w}<em>◆</em></span>`).join("");
+  marquee.innerHTML = line + line;
+
+  renderFeaturedStrip();
+  initReveal();
+});
+</script>
+</body>
+</html>
