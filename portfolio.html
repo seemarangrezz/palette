@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio — Your Name</title>
+<meta name="description" content="Browse the full portfolio: paintings, portraits, abstract works, sketches, sculpture, Tanjore and Lippan art." />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="portfolio">
+<div id="veil" class="veil"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-nav"></div>
+
+<main id="main">
+  <section style="padding-top:170px; padding-bottom:70px;">
+    <div class="container">
+      <p class="eyebrow reveal">Portfolio</p>
+      <h1 class="serif-lg reveal" style="font-style:italic; margin-top:18px;">The Complete<br/>Collection</h1>
+      <p class="lede reveal" style="margin-top:26px;">Paintings, drawings, sculpture and traditional art — spanning oil, acrylic, charcoal, clay, gold leaf and mirror. Filter by collection, or browse everything.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="filters" id="filterBar"></div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <div class="empty-state hidden" id="emptyState">No artworks in this collection yet — check back soon.</div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/cloud.js"></script>
+<script src="assets/js/media.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gallery.js"></script>
+<script>
+document.addEventListener("site:ready", () => {
+  initPortfolioGrid();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CV — Your Name</title>
+<meta name="description" content="Professional curriculum vitae: education, exhibitions, experience and skills." />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/print.css" />
+</head>
+<body data-page="cv">
+<div id="veil" class="veil"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-nav"></div>
+
+<main id="main">
+  <div class="container cv-wrap">
+    <div class="cv-head reveal">
+      <div>
+        <p class="eyebrow">Curriculum Vitae</p>
+        <h1 class="serif-lg" style="font-style:italic; margin-top:16px;" id="cvName"></h1>
+        <p class="label-line" style="margin-top:14px;" id="cvTitle"></p>
+      </div>
+      <div class="cv-download-bar">
+        <button class="btn btn-solid btn-arrow" id="downloadCvBtn">Download CV (PDF)</button>
+      </div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Profile</h3>
+      <p class="lede" id="cvProfile"></p>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Education</h3>
+      <div id="cvEducation"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Professional Experience</h3>
+      <div id="cvExperience"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Art Experience &amp; Exhibitions</h3>
+      <div id="cvExhibitions"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Workshops</h3>
+      <div id="cvWorkshops"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Artistic Mediums</h3>
+      <div class="tags" id="cvMediums"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Skills</h3>
+      <div class="tags" id="cvSkills"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Achievements</h3>
+      <div id="cvAchievements"></div>
+    </div>
+
+    <div class="cv-section reveal">
+      <h3>Contact</h3>
+      <div class="label-line" id="cvContact" style="font-size:14px;"></div>
+    </div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/cloud.js"></script>
+<script src="assets/js/media.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener("site:ready", (e) => {
+  const site = e.detail.site;
+  document.title = `CV — ${site.artistName}`;
+  document.getElementById("cvName").textContent = site.artistName;
+  document.getElementById("cvTitle").innerHTML = `<span>${escapeHTML(site.cv.title)}</span><span>${escapeHTML(site.contact.location)}</span>`;
+  document.getElementById("cvProfile").textContent = site.cv.profile;
+
+  const rows = (list, sub) => list.map(x => `
+    <div class="cv-row">
+      <div class="cv-when">${escapeHTML(x.year)}</div>
+      <div><h4>${escapeHTML(x.title)}</h4><p>${escapeHTML(x.place || "")}${x.place ? " — " : ""}${escapeHTML(x.detail || "")}</p></div>
+    </div>`).join("");
+
+  document.getElementById("cvEducation").innerHTML = rows(site.education);
+  document.getElementById("cvExperience").innerHTML = rows(site.experience);
+  document.getElementById("cvExhibitions").innerHTML = rows(site.exhibitions);
+  document.getElementById("cvWorkshops").innerHTML = rows(site.workshops);
+  document.getElementById("cvMediums").innerHTML = site.mediums.map(m => `<span>${escapeHTML(m)}</span>`).join("");
+  document.getElementById("cvSkills").innerHTML = site.skills.map(s => `<span>${escapeHTML(s)}</span>`).join("");
+  document.getElementById("cvAchievements").innerHTML = site.achievements.map(a => `
+    <div class="cv-row"><div class="cv-when">${escapeHTML(a.year)}</div><div><p>${escapeHTML(a.detail)}</p></div></div>`).join("");
+  document.getElementById("cvContact").innerHTML = `
+    <span>${escapeHTML(site.contact.email)}</span><span>${escapeHTML(site.contact.phone)}</span>
+    <span>${escapeHTML(site.contact.location)}</span><span>${escapeHTML(site.contact.instagram)}</span>`;
+
+  /* If a PDF has been uploaded in the admin, that file is the download.
+     Otherwise the browser prints this page to PDF using print.css — either
+     way the visitor gets a clean, professional document. */
+  const dl = document.getElementById("downloadCvBtn");
+  if (site.cvFile) {
+    dl.textContent = "Download CV (PDF)";
+    dl.addEventListener("click", () => window.open(site.cvFile, "_blank", "noopener"));
+  } else {
+    dl.addEventListener("click", () => window.print());
+  }
+  initReveal();
+});
+</script>
+</body>
+</html>

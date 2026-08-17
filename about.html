@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Your Name</title>
+<meta name="description" content="The artistic journey, philosophy and practice behind the work." />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="about">
+<div id="veil" class="veil"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-nav"></div>
+
+<main id="main">
+  <section class="about-hero container">
+    <p class="eyebrow reveal">About the Artist</p>
+    <h1 class="serif-lg reveal" style="font-style:italic; margin-top:18px; max-width:16ch;" id="aboutIntro"></h1>
+  </section>
+
+  <section class="container about-grid">
+    <div class="about-sticky reveal">
+      <img id="portraitImg" src="assets/images/artworks/clay-vessel-of-memory.svg" alt="Portrait of the artist in the studio" style="aspect-ratio:4/5;object-fit:cover;" />
+      <p class="label-line" style="margin-top:18px;"><span>Based in Dubai, UAE</span></p>
+    </div>
+
+    <div>
+      <div class="about-block reveal">
+        <p class="eyebrow">Journey</p>
+        <div id="bioParagraphs" style="margin-top:22px;"></div>
+      </div>
+
+      <div class="about-block reveal">
+        <p class="eyebrow">Philosophy</p>
+        <p class="lede" style="margin-top:22px;" id="philosophyText"></p>
+      </div>
+
+      <div class="about-block reveal">
+        <p class="eyebrow">Artist's Statement</p>
+        <p class="lede" style="margin-top:22px; font-style:italic;" id="statementText"></p>
+      </div>
+
+      <div class="about-block reveal">
+        <p class="eyebrow">Mediums &amp; Techniques</p>
+        <ul class="mediums-list" id="mediumsListAbout"></ul>
+      </div>
+
+      <div class="about-block reveal">
+        <p class="eyebrow">Education</p>
+        <div id="educationList" style="margin-top:10px;"></div>
+      </div>
+
+      <div class="reveal">
+        <p class="eyebrow">Experience &amp; Exhibitions</p>
+        <div id="experienceList" style="margin-top:10px;"></div>
+      </div>
+
+      <div style="margin-top:60px;" class="reveal">
+        <a href="cv.html" class="btn btn-solid btn-arrow">View Full CV</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/cloud.js"></script>
+<script src="assets/js/media.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener("site:ready", (e) => {
+  const site = e.detail.site;
+  document.title = `About — ${site.artistName}`;
+  document.getElementById("aboutIntro").textContent = site.bio.intro;
+  if (site.portraitImage) document.getElementById("portraitImg").src = site.portraitImage;
+  document.getElementById("bioParagraphs").innerHTML = site.bio.paragraphs.map(p => `<p class="lede" style="margin-bottom:20px;">${escapeHTML(p)}</p>`).join("");
+  document.getElementById("philosophyText").textContent = site.philosophy;
+  document.getElementById("statementText").textContent = `“${site.statement}”`;
+  document.getElementById("mediumsListAbout").innerHTML = site.mediums.map(m => `<li>${escapeHTML(m)}</li>`).join("");
+
+  document.getElementById("educationList").innerHTML = site.education.map(ed => `
+    <div class="timeline-item">
+      <div class="t-year">${escapeHTML(ed.year)}</div>
+      <div><h4>${escapeHTML(ed.title)}</h4><p>${escapeHTML(ed.place)} — ${escapeHTML(ed.detail)}</p></div>
+    </div>`).join("");
+
+  const combined = [...site.experience.map(x => ({...x, kind:"Experience"})), ...site.exhibitions.map(x => ({...x, kind:"Exhibition"}))]
+    .sort((a,b) => String(b.year).localeCompare(String(a.year)));
+  document.getElementById("experienceList").innerHTML = combined.map(x => `
+    <div class="timeline-item">
+      <div class="t-year">${escapeHTML(x.year)}</div>
+      <div><h4>${escapeHTML(x.title)}</h4><p>${escapeHTML(x.kind)} · ${escapeHTML(x.place)} — ${escapeHTML(x.detail)}</p></div>
+    </div>`).join("");
+
+  initReveal();
+});
+</script>
+</body>
+</html>

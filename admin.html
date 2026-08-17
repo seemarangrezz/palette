@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studio Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="admin-body">
+
+<!-- ================= LOGIN ================= -->
+<div class="admin-login" id="loginScreen">
+  <div class="admin-login-card">
+    <div class="nav-mark">Studio Admin</div>
+    <p class="lede">Sign in to manage artworks, photographs, biography, CV and contact details.</p>
+
+    <div class="mode-chip" id="loginModeChip"><span class="status-dot"></span><span id="loginModeText">Checking connection…</span></div>
+
+    <form id="loginForm">
+      <div class="field" id="emailField"><input type="email" id="loginEmail" placeholder="Email address" autocomplete="username" /></div>
+      <div class="field"><input type="password" id="loginPw" placeholder="Password" autocomplete="current-password" required /></div>
+      <button type="submit" class="btn btn-solid" id="loginBtn" style="width:100%; justify-content:center;">Sign In</button>
+      <p class="admin-error" id="loginError"></p>
+    </form>
+
+    <p class="admin-hint" id="loginHint"></p>
+    <p class="admin-hint"><a href="index.html">← Back to the gallery</a></p>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div class="admin-shell hidden" id="dashboard">
+  <aside class="admin-side">
+    <div class="nav-mark">Studio Admin</div>
+    <div class="admin-side-sub">Content Management</div>
+    <button class="admin-tab active" data-tab="artworks">Artworks</button>
+    <button class="admin-tab" data-tab="media">Photos &amp; Files</button>
+    <button class="admin-tab" data-tab="collections">Collections</button>
+    <button class="admin-tab" data-tab="homepage">Homepage</button>
+    <button class="admin-tab" data-tab="bio">Biography</button>
+    <button class="admin-tab" data-tab="cv">CV</button>
+    <button class="admin-tab" data-tab="contact">Contact &amp; Social</button>
+    <button class="admin-tab" data-tab="connection">Connection</button>
+    <button class="admin-tab" data-tab="settings">Settings</button>
+    <div class="admin-side-foot">
+      <a href="index.html" target="_blank">Preview Site ↗</a>
+      <button id="logoutBtn">Log Out</button>
+      <div class="side-user" id="sideUser"></div>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+
+    <!-- save + publish bar -->
+    <div class="save-bar" id="saveBar">
+      <div class="save-state" id="saveState"><span class="status-dot"></span><span id="saveStateText">All changes saved</span></div>
+      <div class="save-actions">
+        <span class="live-chip" id="liveChip" hidden>Unpublished changes</span>
+        <a class="btn" href="index.html" target="_blank">Preview ↗</a>
+        <button class="btn btn-solid" id="publishBtn">Publish to Website</button>
+      </div>
+    </div>
+
+    <!-- ---------- ARTWORKS ---------- -->
+    <section class="admin-panel active" id="panel-artworks">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Artworks</p>
+          <h2>Manage the Collection</h2>
+          <p>Add a piece, upload its photographs, tell its story, and set the order visitors see it in. Hidden pieces stay in your archive without appearing on the site.</p>
+        </div>
+        <button class="btn btn-solid" id="addArtworkBtn">+ Add Artwork</button>
+      </div>
+      <div class="admin-card" id="artworkListMount"></div>
+    </section>
+
+    <!-- ---------- MEDIA ---------- -->
+    <section class="admin-panel" id="panel-media">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Photos &amp; Files</p>
+          <h2>Your Media Library</h2>
+          <p>Drag photographs straight from your desktop. Everything you upload here can be reused anywhere on the site — artworks, the homepage, your portrait — without uploading it twice.</p>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div id="mediaUploadMount"></div>
+      </div>
+      <div class="admin-card">
+        <div class="card-head-row">
+          <p class="eyebrow">Uploaded files</p>
+          <button class="icon-btn" id="refreshMediaBtn">Refresh</button>
+        </div>
+        <div class="lib-grid" id="mediaGridMount"></div>
+      </div>
+    </section>
+
+    <!-- ---------- COLLECTIONS ---------- -->
+    <section class="admin-panel" id="panel-collections">
+      <div class="admin-head">
+        <div><p class="eyebrow">Collections</p><h2>Categories</h2><p>These power the filter tabs on your Portfolio page and the category field on each artwork.</p></div>
+      </div>
+      <div class="admin-card">
+        <div id="categoryListMount"></div>
+        <div class="btn-row">
+          <input type="text" id="newCategoryInput" placeholder="New collection name" class="admin-field" style="border:1px solid var(--line-dark); padding:10px 12px; flex:1; min-width:200px;" />
+          <button class="btn btn-solid" id="addCategoryBtn">Add Collection</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- HOMEPAGE ---------- -->
+    <section class="admin-panel" id="panel-homepage">
+      <div class="admin-head">
+        <div><p class="eyebrow">Homepage</p><h2>Hero &amp; Featured Works</h2><p>The first thing anyone sees. Choose the image that opens the site and up to four pieces for the selected-works strip.</p></div>
+      </div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:14px;">Hero Image</p>
+        <div id="heroUploadMount"></div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-field"><label>Hero Tagline</label><input type="text" id="heroTaglineInput" /></div>
+        <div class="admin-field" style="margin-top:18px;"><label>Hero Image Caption</label><input type="text" id="heroCreditInput" /></div>
+      </div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:16px;">Select Featured Artworks (max 4)</p>
+        <div id="featuredPickerMount"></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-solid" id="saveHomepageBtn">Save Homepage Settings</button></div>
+    </section>
+
+    <!-- ---------- BIOGRAPHY ---------- -->
+    <section class="admin-panel" id="panel-bio">
+      <div class="admin-head"><div><p class="eyebrow">Biography</p><h2>About the Artist</h2><p>This content and portrait power the About page and the introduction on your homepage.</p></div></div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:14px;">Artist Portrait</p>
+        <p class="field-note">A studio portrait or a photograph of you working. Portrait orientation (taller than wide) sits best in the layout.</p>
+        <div id="portraitUploadMount"></div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-field full" style="margin-bottom:18px;"><label>Short Introduction</label><textarea id="bioIntro"></textarea></div>
+        <div class="admin-field full" style="margin-bottom:18px;"><label>Journey — Paragraph 1</label><textarea id="bioP1"></textarea></div>
+        <div class="admin-field full" style="margin-bottom:18px;"><label>Journey — Paragraph 2</label><textarea id="bioP2"></textarea></div>
+        <div class="admin-field full" style="margin-bottom:18px;"><label>Journey — Paragraph 3</label><textarea id="bioP3"></textarea></div>
+        <div class="admin-field full" style="margin-bottom:18px;"><label>Artistic Philosophy</label><textarea id="bioPhilosophy"></textarea></div>
+        <div class="admin-field full"><label>Artist's Statement</label><textarea id="bioStatement"></textarea></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-solid" id="saveBioBtn">Save Biography</button></div>
+    </section>
+
+    <!-- ---------- CV ---------- -->
+    <section class="admin-panel" id="panel-cv">
+      <div class="admin-head"><div><p class="eyebrow">CV</p><h2>Curriculum Vitae</h2><p>Structured entries shown on the CV page. Fill these in and the site generates a clean PDF automatically — or upload your own document to use instead.</p></div></div>
+
+      <div class="admin-card">
+        <div class="admin-form-grid">
+          <div class="admin-field"><label>Professional Title</label><input id="cvTitleInput" /></div>
+          <div class="admin-field full"><label>Profile Summary</label><textarea id="cvProfileInput"></textarea></div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:14px;">Upload Your Own CV (optional)</p>
+        <p class="field-note">Leave this empty and the Download CV button prints a beautifully typeset version of the page below. Upload a PDF and that file becomes the download instead.</p>
+        <div id="cvFileMount"></div>
+      </div>
+
+      <div id="cvRepeatables"></div>
+    </section>
+
+    <!-- ---------- CONTACT ---------- -->
+    <section class="admin-panel" id="panel-contact">
+      <div class="admin-head"><div><p class="eyebrow">Contact</p><h2>Contact Details &amp; Social Links</h2><p>Shown on the Contact page and in the site footer. Leave any social link empty to hide it.</p></div></div>
+      <div class="admin-card admin-form-grid">
+        <div class="admin-field"><label>Artist Name</label><input id="contactArtistName" /></div>
+        <div class="admin-field"><label>Email</label><input id="contactEmail" /></div>
+        <div class="admin-field"><label>Phone</label><input id="contactPhone" /></div>
+        <div class="admin-field"><label>Location</label><input id="contactLocation" /></div>
+        <div class="admin-field"><label>Instagram URL</label><input id="contactInstagram" /></div>
+        <div class="admin-field"><label>LinkedIn URL</label><input id="contactLinkedin" /></div>
+        <div class="admin-field"><label>Facebook URL</label><input id="contactFacebook" /></div>
+        <div class="admin-field"><label>Pinterest URL</label><input id="contactPinterest" /></div>
+        <div class="admin-field"><label>WhatsApp Link</label><input id="contactWhatsapp" /></div>
+        <div class="admin-field full"><label>Form Endpoint (optional — e.g. a Formspree URL)</label><input id="contactFormEndpoint" /></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-solid" id="saveContactBtn">Save Contact Details</button></div>
+    </section>
+
+    <!-- ---------- CONNECTION ---------- -->
+    <section class="admin-panel" id="panel-connection">
+      <div class="admin-head"><div><p class="eyebrow">Connection</p><h2>Where Your Website Lives</h2><p>A plain-English check of whether your site is saving to a shared database that works from any device — or only to this browser.</p></div></div>
+
+      <div class="admin-card" id="connectionCard">
+        <div class="conn-status" id="connStatus"><span class="status-dot"></span><span>Checking…</span></div>
+        <ul class="conn-list" id="connChecks"></ul>
+        <div class="btn-row"><button class="btn" id="recheckBtn">Check again</button></div>
+      </div>
+
+      <div class="admin-card" id="setupGuideCard">
+        <p class="eyebrow" style="margin-bottom:14px;">Connecting a database — about ten minutes, once</p>
+        <ol class="setup-steps">
+          <li><strong>Create a free account</strong> at supabase.com and click <em>New project</em>. Any name and region is fine; pick a database password and keep it somewhere safe.</li>
+          <li><strong>Set up the storage.</strong> In your new project, open <em>SQL Editor</em>, click <em>New query</em>, paste the script below, and press Run. It creates the content table and the photo bucket in one go.</li>
+          <li><strong>Create your login.</strong> Go to <em>Authentication → Users → Add user</em>, enter the email and password you want to sign in with here, and tick <em>Auto Confirm User</em>.</li>
+          <li><strong>Connect the site.</strong> Open <em>Project Settings → API</em>, copy the <em>Project URL</em> and the <em>anon public</em> key, and paste them into <code>assets/js/config.js</code> where it says <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code>. Save and upload the file to your host.</li>
+          <li><strong>Come back here and sign in</strong> with the email and password from step 3. Everything you upload now lives in the cloud, shared with every visitor and editable from any device.</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn btn-solid" id="copySqlBtn">Copy the setup script</button>
+          <button class="btn" id="downloadSqlBtn">Download it as a file</button>
+        </div>
+        <pre class="sql-box" id="sqlBox"></pre>
+      </div>
+    </section>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <section class="admin-panel" id="panel-settings">
+      <div class="admin-head"><div><p class="eyebrow">Settings</p><h2>Backups &amp; Password</h2></div></div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:14px;">Publishing</p>
+        <p class="field-note">Your edits save automatically as a private draft. Nothing reaches the public site until you press <strong>Publish to Website</strong> at the top of the screen. If you change your mind before publishing, you can roll the draft back to whatever is currently live.</p>
+        <div class="btn-row">
+          <button class="btn" id="discardDraftBtn">Discard Draft &amp; Restore Live Version</button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:14px;">Backups</p>
+        <p class="field-note">A backup is a single file containing every artwork, story and detail on your site. Download one before any big change — it's the fastest way to undo a mistake.</p>
+        <div class="btn-row">
+          <button class="btn btn-solid" id="backupBtn">Download Backup</button>
+          <button class="btn" id="restoreBtn">Restore From Backup</button>
+          <input type="file" id="restoreInput" accept=".json,application/json" hidden />
+          <button class="btn" id="exportBtn">Export data.js (advanced)</button>
+        </div>
+        <p class="admin-error" id="backupMsg"></p>
+      </div>
+
+      <div class="admin-card" id="localPwCard">
+        <p class="eyebrow" style="margin-bottom:14px;">Browser Password</p>
+        <p class="field-note">Used only while the site is in browser-only mode. Once a database is connected, you sign in with your real email account instead and this is ignored.</p>
+        <div class="admin-form-grid">
+          <div class="admin-field"><label>New Password</label><input type="password" id="newPw" /></div>
+          <div class="admin-field"><label>Confirm New Password</label><input type="password" id="confirmPw" /></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-dark" id="changePwBtn">Update Password</button></div>
+        <p class="admin-error" id="pwChangeMsg"></p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= ARTWORK EDITOR MODAL ================= -->
+<div class="editor-modal" id="artworkModal">
+  <div class="editor-card">
+    <div class="editor-card-head">
+      <h3 id="modalTitle">Add Artwork</h3>
+      <button class="icon-btn" id="closeModalBtn">Close ✕</button>
+    </div>
+
+    <div class="editor-section">
+      <p class="eyebrow" style="margin-bottom:10px;">Photographs</p>
+      <p class="field-note">Drag your photos in, or click to browse. The first image is the one visitors see in the gallery — drag the thumbnails to reorder them, or press ★ to promote one. Large files are resized automatically.</p>
+      <div id="artworkImagesMount"></div>
+    </div>
+
+    <div class="admin-form-grid">
+      <div class="admin-field full"><label>Title</label><input id="fldTitle" /></div>
+      <div class="admin-field"><label>Year</label><input id="fldYear" type="number" /></div>
+      <div class="admin-field"><label>Category</label><select id="fldCategory"></select></div>
+      <div class="admin-field"><label>Medium</label><input id="fldMedium" placeholder="Oil on canvas" /></div>
+      <div class="admin-field"><label>Dimensions</label><input id="fldDimensions" placeholder="120 × 150 cm" /></div>
+      <div class="admin-field"><label>Availability</label>
+        <select id="fldStatus">
+          <option value="available">Available</option>
+          <option value="sold">Sold</option>
+          <option value="not-for-sale">Not For Sale</option>
+        </select>
+      </div>
+      <div class="admin-field"><label>Visibility</label>
+        <select id="fldPublished">
+          <option value="yes">Visible on the site</option>
+          <option value="no">Hidden (archive only)</option>
+        </select>
+      </div>
+      <div class="admin-field full check-field">
+        <label><input type="checkbox" id="fldFeatured" />Feature this piece on the homepage</label>
+      </div>
+      <div class="admin-field full"><label>The Story</label><textarea id="fldDescription" placeholder="What is this piece about? Write the way you'd talk about it in the studio."></textarea></div>
+      <div class="admin-field full"><label>Inspiration</label><textarea id="fldInspiration"></textarea></div>
+      <div class="admin-field full"><label>Artist's Interpretation</label><textarea id="fldInterpretation"></textarea></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-solid" id="saveArtworkBtn">Save Artwork</button>
+      <button class="btn" id="cancelArtworkBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/cloud.js"></script>
+<script src="assets/js/media.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/uploader.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
